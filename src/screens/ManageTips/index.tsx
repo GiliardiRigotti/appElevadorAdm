@@ -1,0 +1,37 @@
+import { useContext } from "react";
+import Header from "../../components/Header";
+import { Container } from "../../styles/global";
+import { AppContext } from "../../context";
+import CardItem from "../../components/CardItem";
+import Footer from "../../components/Footer";
+import { ScrollView } from "react-native";
+import AddButton from "../../components/AddButton";
+import { useNavigation } from "@react-navigation/native";
+
+
+export default function ManageTips() {
+    const navigation = useNavigation()
+    const { listTips } = useContext(AppContext)
+    return (
+        <>
+            <Header />
+            <Container>
+                <ScrollView
+                    style={{
+                        width: "100%"
+                    }}
+                    contentContainerStyle={{
+                        alignItems: "center",
+                    }}
+                >
+                    {
+                        listTips.map((item, index) => <CardItem key={index} name={item.title} description={item.description} />)
+                    }
+                    <Footer />
+                </ScrollView>
+            </Container>
+            <AddButton onPress={() => navigation.navigate("CreateTip")} />
+        </>
+
+    )
+}

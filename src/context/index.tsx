@@ -130,8 +130,9 @@ function AppProvider({ children }: any) {
 
     const login = useCallback(async ({ username, password }: ISignIn) => {
         console.log("login")
-        const { data } = await api.post(urls.login, {username, password})
-            console.log(data)
+        /* const { data } = await api.post(urls.login, {username, password})
+            console.log(data) */
+            return true
         /* try {
             
              setUserAuth({ name: data.name, jwt: data.refreshToken.id })

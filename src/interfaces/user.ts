@@ -6,7 +6,7 @@ export interface IUser {
     district: string
     address: string
     number: string
-    password?: string
+    password: string
 }
 
 export interface IUserAuth {

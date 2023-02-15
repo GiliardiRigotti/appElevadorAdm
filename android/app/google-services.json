@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "864497456796",
+    "project_id": "appelevador-d1bdb",
+    "storage_bucket": "appelevador-d1bdb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:864497456796:android:845e6bf8ad781f82ec3f59",
+        "android_client_info": {
+          "package_name": "com.appElevadorAdm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "864497456796-q850sgloivr2uauv9dli46td9p59f6la.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjQnOOOB_OfmpILrSvRjS7z_OreSqt3yI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "864497456796-q850sgloivr2uauv9dli46td9p59f6la.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

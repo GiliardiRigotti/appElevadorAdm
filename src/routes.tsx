@@ -19,7 +19,8 @@ export default function Routes() {
         <NavigationContainer>
             <AppProvider>
                 <NotifierWrapper>
-                    <Stack.Navigator screenOptions={{
+                    <Stack.Navigator 
+                    screenOptions={{
                         headerShown: false
                     }}>
                         <Stack.Screen name="Login" component={Login} />

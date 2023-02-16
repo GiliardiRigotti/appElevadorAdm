@@ -15,12 +15,12 @@ export default function Login() {
     const [isLoad, setIsLoad] = useState<boolean>(false)
     const { login } = useContext(AppContext)
     const [formLogin, setFormLogin] = useState<ISignIn>({
-        username: null,
-        password: null
+        email: '',
+        password: ''
     })
 
     async function handleSignIn() {
-        if (formLogin.username != null && formLogin.password != null) {
+        if (formLogin.email != '' && formLogin.password != '') {
             setIsLoad(true)
             const auth = await login(formLogin)
             if (auth) {
@@ -39,9 +39,8 @@ export default function Login() {
 
     async function handleForgotPassword() {
         setIsLoad(true)
-        if (formLogin.username != null) {
-            console.log("Entrou")
-            const sendEmail = await login(formLogin)
+        if (formLogin.email != '') {
+            await login(formLogin)
             setIsLoad(false)
             return
         }
@@ -66,8 +65,8 @@ export default function Login() {
                 style={{ width: "100%" }}
             >
                 <Image source={images.logo} style={{ width: 450, height: 300, resizeMode: "contain" }} />
-                <Input title="Usuario" onChangeText={(value) => setFormLogin({ ...formLogin, username: value })} placeholder="Usuario" />
-                <Input title="Senha" onChangeText={(value) => setFormLogin({ ...formLogin, password: value })} placeholder="Senha" secureTextEntry />
+                <Input title="E-mail" onChangeText={(value) => setFormLogin({ ...formLogin, email: value })} placeholder="exemplo@email.com" />
+                <Input title="Senha" onChangeText={(value) => setFormLogin({ ...formLogin, password: value })} placeholder="senha" secureTextEntry />
             </KeyboardAvoidingView>
             <Button onPress={handleSignIn} disable={isLoad}>
                 {

@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import firestore from "@react-native-firebase/firestore"
+
 import { ISignIn, IUser, IUserAuth } from '../interfaces/user';
 import { INotification } from '../interfaces/notification';
 import { ITip } from '../interfaces/tip';
@@ -13,9 +15,13 @@ interface AppContextData {
     userAuth: IUserAuth | null
     login: ({ username, password }: ISignIn) => Promise<boolean>
     forgotPassword: ({ username }: ISignIn) => Promise<boolean>
-    createUser: ({ }) => Promise<boolean>
-    updateUser: (id: number) => Promise<boolean>
+    createUser: (newUser: IUser) => Promise<boolean>
+    updateUser: (id: number, updateUser: IUser) => Promise<boolean>
     deleteUser: (id: number) => Promise<boolean>
+    createTip: (newTip: ITip) => Promise<boolean>
+    updateTip: (id: number, updateTip: ITip) => Promise<boolean>
+    deleteTip: (id: number) => Promise<boolean>
+    createNotification: (newNotification: INotification) => Promise<boolean>
     listUsers: IUser[]
     listNotifications: INotification[]
     listTips: ITip[]
@@ -29,7 +35,95 @@ function AppProvider({ children }: any) {
     const [listNotifications, setListNotifications] = useState<INotification[]>([])
     const [listTips, setListTips] = useState<ITip[]>([])
 
-    
+    const createUser = useCallback(async (newUser: IUser) => {
+        try {
+            await firestore().collection('users').add({
+                ...newUser, created_at: firestore.FieldValue.serverTimestamp()
+            })
+            showNotification({
+                title: "Sucesso",
+                description: "Efetuado o cadastro de usuario",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            console.log("Error: ", error)
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao cadastrar o usuario",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const updateUser = useCallback(async (id: number, newUser: IUser) => {
+        try {
+            await firestore().collection('users')
+            showNotification({
+                title: "Sucesso",
+                description: "Efetuado o cadastro de usuario",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao cadastrar o usuario",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const createTip = useCallback(async (newTip: ITip) => {
+        try {
+            await firestore().collection('tips').add(newTip)
+            showNotification({
+                title: "Sucesso",
+                description: "Efetuado o cadastro da sugestão",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao cadastrar a sugestão",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const createNotification = useCallback(async (newNotification: INotification) => {
+        try {
+            await firestore().collection('notifications').add(newNotification)
+            showNotification({
+                title: "Sucesso",
+                description: "Efetuado a enviar a notificação",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao enviar a notificaçãoo",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+
+
     const getListNotifications = useCallback(async (): Promise<INotification[]> => {
         try {
             const { data } = await api.get(urls.notification)
@@ -45,10 +139,20 @@ function AppProvider({ children }: any) {
         }
     }, [])
 
-    const getListUsers = useCallback(async (): Promise<IUser[]> => {
+    const getListUsers = useCallback(async () => {
         try {
-            const { data } = await api.get(urls.user)
-            return data
+            const users = await firestore().collection('users').onSnapshot(querySnapshot => {
+                const data = querySnapshot.docs.map(docs => {
+                    return {
+                        id: docs.id,
+                        ...docs.data()
+                    }
+                }) as IUser[]
+
+                console.log(data)
+                setListUsers(data)
+            })
+            return () => users();
         } catch (error) {
             showNotification({
                 title: "Aviso",
@@ -61,10 +165,10 @@ function AppProvider({ children }: any) {
     }, [])
 
     const login = useCallback(async ({ username, password }: ISignIn) => {
-        console.log("login")
         try {
-            const {user} = await auth().signInWithEmailAndPassword(username, password)
-            console.log(user)
+            const { user } = await auth().signInWithEmailAndPassword(username, password)
+            const listUser = await getListUsers()
+            console.log(listUser)
             return true
         } catch (error) {
             console.log(error)
@@ -73,7 +177,6 @@ function AppProvider({ children }: any) {
     }, [])
 
     const forgotPassword = useCallback(async ({ username }: ISignIn) => {
-        console.log("login")
         try {
             await auth().sendPasswordResetEmail(username)
             showNotification({
@@ -96,7 +199,7 @@ function AppProvider({ children }: any) {
     }, [])
 
     return (
-        <AppContext.Provider value={{ userAuth, login, listUsers, listNotifications, listTips }}>
+        <AppContext.Provider value={{ userAuth, login, listUsers, listNotifications, listTips, forgotPassword, createUser, createTip, createNotification }}>
             {children}
         </AppContext.Provider>
     )

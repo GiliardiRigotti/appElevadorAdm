@@ -22,10 +22,8 @@ export default function Login() {
     async function handleSignIn() {
         if (formLogin.username != null && formLogin.password != null) {
             setIsLoad(true)
-            console.log("Entrou")
             const auth = await login(formLogin)
             if (auth) {
-                console.log("Entrou 2")
                 navigation.navigate("Home")
             }
             setIsLoad(false)
@@ -39,7 +37,7 @@ export default function Login() {
         })
     }
 
-    async function handleForgotPassword(){
+    async function handleForgotPassword() {
         setIsLoad(true)
         if (formLogin.username != null) {
             console.log("Entrou")
@@ -73,24 +71,24 @@ export default function Login() {
             </KeyboardAvoidingView>
             <Button onPress={handleSignIn} disable={isLoad}>
                 {
-                    isLoad?
-                    <ActivityIndicator size="small" animating color={colors.white}/>
-                    :
-                    <ButtonTitle>
-                        Entrar
-                    </ButtonTitle>
+                    isLoad ?
+                        <ActivityIndicator size="small" animating color={colors.white} />
+                        :
+                        <ButtonTitle>
+                            Entrar
+                        </ButtonTitle>
                 }
             </Button>
             <Link onPress={handleForgotPassword} disable={isLoad}>
                 {
-                    isLoad?
-                    <ActivityIndicator size="small" animating color={colors.white}/>
-                    :
-                    <LinkTitle>
-                    Esqueceu a senha?
-                    </LinkTitle>
+                    isLoad ?
+                        <ActivityIndicator size="small" animating color={colors.white} />
+                        :
+                        <LinkTitle>
+                            Esqueceu a senha?
+                        </LinkTitle>
                 }
-               
+
             </Link>
         </Container>
     )

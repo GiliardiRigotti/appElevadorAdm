@@ -1969,6 +1969,11 @@
     "@expo/config-plugins" "^5.0.4"
     plist "^3.0.5"
 
+"@react-native-firebase/firestore@^17.3.0":
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-17.3.0.tgz#b3642e0185fa27066ca3805fc225d18dc9bd3afc"
+  integrity sha512-pfh0/KAjdruplIosiEHMDt8ALTCk+sMBD+HNCtHwU8J8MrkCfzY0yAKtDMJasrQ7AHC5Py0E4/6rCe2IbdEH5g==
+
 "@react-native-masked-view/masked-view@0.2.8":
   version "0.2.8"
   resolved "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.2.8.tgz"

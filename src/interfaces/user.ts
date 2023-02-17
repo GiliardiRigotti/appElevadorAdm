@@ -17,6 +17,6 @@ export interface IUserAuth {
 }
 
 export interface ISignIn {
-    username: string | null
-    password: string | null
+    email: string
+    password: string
 }

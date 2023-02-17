@@ -10,24 +10,14 @@ interface Props {
 }
 
 
-export default function Header({ title }: Props) {
-    const { user } = useContext(AppContext)
+export default function Header({ title = "" }: Props) {
     return (
         <>
             <StatusBar style="light" />
             <Container>
-                {
-                    title != null ?
-                        <Title>
-                            {title}
-                        </Title>
-                        :
-                        <Title>
-                            {user && user.name}
-                        </Title>
-
-                }
-
+                <Title>
+                    {title}
+                </Title>
                 <Button>
                     <Icon name="logout" size={20} color={colors.white} />
                 </Button>

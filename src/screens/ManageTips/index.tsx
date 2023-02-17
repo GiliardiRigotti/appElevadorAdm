@@ -14,7 +14,7 @@ export default function ManageTips() {
     const { listTips } = useContext(AppContext)
     return (
         <>
-            <Header />
+            <Header title="Recomendações"/>
             <Container>
                 <ScrollView
                     style={{
@@ -25,13 +25,12 @@ export default function ManageTips() {
                     }}
                 >
                     {
-                        listTips.map((item, index) => <CardItem key={index} name={item.title} description={item.description} />)
+                        listTips.map((item, index) => <CardItem key={index} id={`${item.id}`} name={item.title} description={item.description} type="tip" />)
                     }
-                    <Footer />
                 </ScrollView>
             </Container>
+            <Footer />
             <AddButton onPress={() => navigation.navigate("CreateTip")} />
         </>
-
     )
 }

@@ -7,8 +7,9 @@ export const Container = styled.View`
     border-radius:10px;
     margin-top:10px;
     border-width:1px;
-    border-radius:10px;
+    border-color:#fffffa;
     padding:10px;
+    background-color:#fffffa;
 `;
 
 export const Wrapper = styled.View`

@@ -1,0 +1,5 @@
+curl -i -X POST \
+  https://graph.facebook.com/v16.0/105954558954427/messages \
+  -H 'Authorization: Bearer EAAFl...' \
+  -H 'Content-Type: application/json' \
+  -d '{ "messaging_product": "whatsapp", "to": "5547992609578", "type": "template", "template": { "name": "hello_world", "language": { "code": "pt_BR" } } }'

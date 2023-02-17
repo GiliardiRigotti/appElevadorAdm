@@ -614,7 +614,7 @@ PODS:
     - ExpoModulesCore
   - EXFont (11.0.1):
     - ExpoModulesCore
-  - Expo (47.0.12):
+  - Expo (47.0.13):
     - ExpoModulesCore
   - ExpoCrypto (12.0.0):
     - ExpoModulesCore
@@ -1033,10 +1033,10 @@ PODS:
     - React-Core
   - RNCMaskedView (0.2.8):
     - React-Core
-  - RNFBApp (17.2.0):
+  - RNFBApp (17.3.0):
     - Firebase/CoreOnly (= 10.5.0)
     - React-Core
-  - RNFBAuth (17.2.0):
+  - RNFBAuth (17.3.0):
     - Firebase/Auth (= 10.5.0)
     - React-Core
     - RNFBApp
@@ -1236,7 +1236,7 @@ SPEC CHECKSUMS:
   EXErrorRecovery: ae43433feb0608a64dc5b1c8363b3e7769a9ea24
   EXFileSystem: 60602b6eefa6873f97172c684b7537c9760b50d6
   EXFont: 319606bfe48c33b5b5063fb0994afdc496befe80
-  Expo: f48d305fda3e4e501d686e6bad7d8c8373828279
+  Expo: b9fa98bf260992312ee3c424400819fb9beadafe
   ExpoCrypto: 51e7662c7f5bfeab25b7909b8a5d545ec15d4877
   ExpoKeepAwake: 69b59d0a8d2b24de9f82759c39b3821fec030318
   ExpoModulesCore: 485dff3a59b036a33b6050c0a5aea3cf1037fdd1
@@ -1287,13 +1287,13 @@ SPEC CHECKSUMS:
   ReactCommon: c9246996e73bf75a2c6c3ff15f1e16707cdc2da9
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
   RNCMaskedView: bc0170f389056201c82a55e242e5d90070e18e5a
-  RNFBApp: 4f8ea53443d52c7db793234d2398a357fc6cfbf1
-  RNFBAuth: 493fb29e48f138d448c8db01ecc566fe9c32e6b8
+  RNFBApp: 3672911764485c44b6ff947273a0d470477774df
+  RNFBAuth: 9bf7fdb756a4e9f0f5b79a1a08e40595ae8bf4b7
   RNFBFirestore: 7104b52d71b367e4c18f61dc983b54e305d5d5ef
   RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
   RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
   Yoga: eca980a5771bf114c41a754098cd85e6e0d90ed7
 
-PODFILE CHECKSUM: 377828377d75e627afbca8672800fc1e566513d9
+PODFILE CHECKSUM: c96b19db90abff6bc0ac098d49ac7ae6f5d9a2d5
 
 COCOAPODS: 1.11.3

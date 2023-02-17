@@ -146,7 +146,7 @@ function AppProvider({ children }: any) {
             await firestore().collection('tips').doc(`${id}`).delete()
             showNotification({
                 title: "Sucesso",
-                description: "Deletado a recomendação selecionado",
+                description: "Deletado a recomendação",
                 duration: 2500,
                 type: "success"
             })
@@ -154,7 +154,7 @@ function AppProvider({ children }: any) {
         } catch (error) {
             showNotification({
                 title: "Aviso",
-                description: "Erro ao deletar o recomendação deletado",
+                description: "Erro ao deletar o recomendação",
                 duration: 2500,
                 type: "error"
             })

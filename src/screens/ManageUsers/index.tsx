@@ -6,6 +6,7 @@ import { ScrollView, Text, TouchableOpacity } from "react-native";
 import AddButton from "../../components/AddButton";
 import CardItem from "../../components/CardItem";
 import { useNavigation } from "@react-navigation/native";
+import Footer from "../../components/Footer";
 
 
 export default function ManageUsers() {
@@ -24,16 +25,11 @@ export default function ManageUsers() {
                     }}
                 >
                     {
-                        listUsers.map((item, index) => {
-                            if (!item.administrator) {
-                                return (
-                                    <CardItem key={index} name={item.name} description={item.address} />
-                                )
-                            }
-                        })
+                        listUsers.map((item, index) => <CardItem key={item.id} id={`${item.id}`} name={item.name} description={item.address} type='user' />)
                     }
                 </ScrollView>
             </Container>
+            <Footer />
             <AddButton onPress={() => navigation.navigate("CreateUser")} />
         </>
 

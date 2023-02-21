@@ -3,21 +3,26 @@ import Header from "../../components/Header";
 import Input from "../../components/Input";
 import { Container } from "../../styles/global";
 import { Button, ButtonCancel, ButtonTitle } from "./styles";
-import { TextInput } from "react-native";
-import { useState } from "react";
+import { ActivityIndicator, TextInput } from "react-native";
+import { useContext, useState } from "react";
 import { ITip } from "../../interfaces/tip";
 import { showNotification } from "../../utils/notification";
+import { AppContext } from "../../context";
 
 export default function CreateTip() {
     const navigation = useNavigation()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const {createTip} = useContext(AppContext)
     const [form, setForm] = useState<ITip>({
         title: '',
         description: ''
     })
 
     async function handleCreateTip() {
+        setIsLoading(true)
         if (form.title != "" && form.description != "") {
-            console.log("Foi criada um recomendação")
+            await createTip(form)
+            navigation.navigate("ManageTips")
             return
         }
         showNotification({
@@ -26,6 +31,7 @@ export default function CreateTip() {
             type: "warn",
             duration: 2000
         })
+        setIsLoading(false)
 
     }
     return (
@@ -34,12 +40,18 @@ export default function CreateTip() {
             <Container>
                 <Input title="Titulo" onChangeText={(value) => setForm({ ...form, title: value })} />
                 <Input title="Mensagem" onChangeText={(value) => setForm({ ...form, description: value })} textArea />
-                <Button onPress={handleCreateTip}>
-                    <ButtonTitle>
-                        Criar
-                    </ButtonTitle>
+                <Button onPress={handleCreateTip} disable={isLoading}>
+                    {
+                        isLoading?
+                        <ActivityIndicator size={'small'} animating/>
+                        :
+                        <ButtonTitle>
+                            Enviar
+                        </ButtonTitle>
+                    }
+                    
                 </Button>
-                <ButtonCancel onPress={() => navigation.navigate("Home")}>
+                <ButtonCancel onPress={() => navigation.navigate("Home")} disable={isLoading}>
                     <ButtonTitle>
                         Cancelar
                     </ButtonTitle>

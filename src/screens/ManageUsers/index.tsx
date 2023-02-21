@@ -14,7 +14,7 @@ export default function ManageUsers() {
     const { listUsers } = useContext(AppContext)
     return (
         <>
-            <Header title="Usuarios"/>
+            <Header title="Usuários" />
             <Container>
                 <ScrollView
                     style={{

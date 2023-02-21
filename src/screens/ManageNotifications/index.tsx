@@ -14,7 +14,7 @@ export default function ManageNotifications() {
     const { listNotifications } = useContext(AppContext)
     return (
         <>
-            <Header title="Notificações"/>
+            <Header title="Notificações" />
             <Container>
                 <ScrollView
                     style={{
@@ -25,7 +25,7 @@ export default function ManageNotifications() {
                     }}
                 >
                     {
-                        listNotifications.map((item, index) => <CardUser key={index} id={`${item.id}`} name={item.title} description={item.description} type="notification"/>)
+                        listNotifications.map((item, index) => <CardUser key={index} id={`${item.id}`} name={item.title} description={item.description} type="notification" />)
                     }
                 </ScrollView>
             </Container>

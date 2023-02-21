@@ -13,7 +13,7 @@ export default function ManageUsers() {
     const { listUsers } = useContext(AppContext)
     return (
         <>
-            <Header />
+            <Header title="Usuários" />
             <Container>
                 <ScrollView
                     style={{
@@ -24,7 +24,13 @@ export default function ManageUsers() {
                     }}
                 >
                     {
-                        listUsers.map((item, index) => <CardItem key={index} name={item.name} description={item.address} />)
+                        listUsers.map((item, index) => {
+                            if (!item.administrator) {
+                                return (
+                                    <CardItem key={index} name={item.name} description={item.address} />
+                                )
+                            }
+                        })
                     }
                 </ScrollView>
             </Container>

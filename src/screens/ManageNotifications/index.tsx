@@ -13,7 +13,7 @@ export default function ManageNotifications() {
     const { listNotifications } = useContext(AppContext)
     return (
         <>
-            <Header />
+            <Header title="Notificações" />
             <Container>
                 <ScrollView
                     style={{

@@ -9,6 +9,7 @@ export interface IUser {
     address: string
     number: string
     password: string
+    administrator: boolean
 }
 
 export interface IUserAuth {

@@ -8,6 +8,8 @@ import { showNotification } from "../../utils/notification";
 import { IUser } from "../../interfaces/user";
 import { useContext, useState } from "react";
 import { AppContext } from "../../context";
+import Checkbox from "../../components/Checkbox";
+import { KeyboardAvoidingView, Platform } from "react-native";
 
 export default function CreateUser() {
     const { createUser } = useContext(AppContext)
@@ -21,6 +23,7 @@ export default function CreateUser() {
         number: "",
         phone: "",
         password: "",
+        administrator: false
     })
     const navigation = useNavigation()
 
@@ -61,27 +64,33 @@ export default function CreateUser() {
     return (
         <>
             <Header title="Criação de usuário" />
-            <Container>
-                <Input title="Nome" onChangeText={(value) => setForm({ ...form, name: value })} />
-                <Input title="E-mail" onChangeText={(value) => setForm({ ...form, email: value })} />
-                <Input title="Senha" onChangeText={(value) => setForm({ ...form, password: value })} secureTextEntry />
-                <Input title="Telefone" onChangeText={(value) => setForm({ ...form, phone: value })} />
-                <Input title="Cidade" onChangeText={(value) => setForm({ ...form, city: value })} />
-                <Input title="Bairro" onChangeText={(value) => setForm({ ...form, district: value })} />
-                <Input title="Endereço" onChangeText={(value) => setForm({ ...form, address: value })} />
-                <Input title="Numero" onChangeText={(value) => setForm({ ...form, number: value })} />
-
-                <Button onPress={handleSignUp} disabled={isLoad}>
-                    <ButtonTitle>
-                        Cadastrar
-                    </ButtonTitle>
-                </Button>
-                <ButtonCancel onPress={() => navigation.navigate("Home")} disabled={isLoad}>
-                    <ButtonTitle>
-                        Cancelar
-                    </ButtonTitle>
-                </ButtonCancel>
-            </Container>
+            <KeyboardAvoidingView
+                behavior="padding"
+                style={{ flex: 1, width: "100%" }}
+                keyboardVerticalOffset={80}
+            >
+                <Container>
+                    <Input title="Nome" onChangeText={(value) => setForm({ ...form, name: value })} />
+                    <Input title="E-mail" onChangeText={(value) => setForm({ ...form, email: value })} />
+                    <Input title="Senha" onChangeText={(value) => setForm({ ...form, password: value })} secureTextEntry />
+                    <Input title="DDD + Telefone" onChangeText={(value) => setForm({ ...form, phone: value })} />
+                    <Input title="Cidade" onChangeText={(value) => setForm({ ...form, city: value })} />
+                    <Input title="Bairro" onChangeText={(value) => setForm({ ...form, district: value })} />
+                    <Input title="Endereço" onChangeText={(value) => setForm({ ...form, address: value })} />
+                    <Input title="Numero" onChangeText={(value) => setForm({ ...form, number: value })} />
+                    <Checkbox title="Administrador?" value={form.administrator} onPress={() => setForm({ ...form, administrator: !form.administrator })} />
+                    <Button onPress={handleSignUp} disabled={isLoad}>
+                        <ButtonTitle>
+                            Cadastrar
+                        </ButtonTitle>
+                    </Button>
+                    <ButtonCancel onPress={() => navigation.navigate("Home")} disabled={isLoad}>
+                        <ButtonTitle>
+                            Cancelar
+                        </ButtonTitle>
+                    </ButtonCancel>
+                </Container>
+            </KeyboardAvoidingView>
         </>
     )
 }

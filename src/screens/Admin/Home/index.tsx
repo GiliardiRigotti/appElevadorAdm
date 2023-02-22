@@ -1,8 +1,8 @@
-import Card from "../../components/Card";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import { colors } from "../../constants/colors";
-import { Container } from "../../styles/global";
+import Card from "../../../components/Card";
+import Footer from "../../../components/Footer";
+import Header from "../../../components/Header";
+import { colors } from "../../../constants/colors";
+import { Container } from "../../../styles/global";
 
 
 export default function Home() {
@@ -27,6 +27,12 @@ export default function Home() {
                     description="Gerencie as dicas"
                     goTo="ManageTips" bgColor={colors.blue}
                     fontColor={colors.white}
+                />
+                <Card
+                    title="Ordem de serviço"
+                    description="Gerencie as ordens de serviços"
+                    goTo="ManageTips" bgColor={colors.blueLight}
+                    fontColor={colors.black}
                 />
             </Container>
             <Footer />

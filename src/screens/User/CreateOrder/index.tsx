@@ -1,17 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
 
-import Header from "../../components/Header";
-import Input from "../../components/Input";
-import { Container } from "../../styles/global";
+import Header from "../../../components/Header";
+import Input from "../../../components/Input";
+import { Container } from "../../../styles/global";
 import { Button, ButtonCancel, ButtonTitle } from "./styles";
-import { showNotification } from "../../utils/notification";
-import { IUser } from "../../interfaces/user";
+import { showNotification } from "../../../utils/notification";
+import { IUser } from "../../../interfaces/user";
 import { useContext, useState } from "react";
-import { AppContext } from "../../context";
-import Checkbox from "../../components/Checkbox";
+import { AppContext } from "../../../context";
+import Checkbox from "../../../components/Checkbox";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
-export default function CreateUser() {
+export default function CreateOrder() {
     const { createUser } = useContext(AppContext)
     const [isLoad, setIsLoad] = useState<boolean>(false)
     const [form, setForm] = useState<IUser>({

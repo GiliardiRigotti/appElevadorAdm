@@ -1,19 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
-import Header from "../../components/Header";
-import Input from "../../components/Input";
-import { Container } from "../../styles/global";
+import Header from "../../../components/Header";
+import Input from "../../../components/Input";
+import { Container } from "../../../styles/global";
 import { Button, ButtonCancel, ButtonTitle } from "./styles";
-import { api, urls } from "../../services/api";
 import { useContext, useState } from "react";
-import { INotification } from "../../interfaces/notification";
-import { showNotification } from "../../utils/notification";
-import { AppContext } from "../../context";
+import { INotification } from "../../../interfaces/notification";
+import { showNotification } from "../../../utils/notification";
+import { AppContext } from "../../../context";
 import { ActivityIndicator } from "react-native";
 
 export default function CreateNotification() {
     const navigation = useNavigation()
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const {createNotification} = useContext(AppContext)
+    const { createNotification } = useContext(AppContext)
     const [form, setForm] = useState<INotification>({
         title: '',
         description: ''
@@ -54,19 +53,19 @@ export default function CreateNotification() {
             <Header title="Enviar uma notificação" />
             <Container>
                 <Input title="Titulo" onChangeText={(value) => setForm({ ...form, title: value })} />
-                <Input title="Mensagem" onChangeText={(value) => setForm({ ...form, description: value })} textArea/>
+                <Input title="Mensagem" onChangeText={(value) => setForm({ ...form, description: value })} textArea />
                 <Button onPress={handleSendNotification} disable={isLoading}>
                     {
-                        isLoading?
-                        <ActivityIndicator size={'small'} animating/>
-                        :
-                        <ButtonTitle>
-                            Enviar
-                        </ButtonTitle>
+                        isLoading ?
+                            <ActivityIndicator size={'small'} animating />
+                            :
+                            <ButtonTitle>
+                                Enviar
+                            </ButtonTitle>
                     }
-                    
+
                 </Button>
-                <ButtonCancel onPress={() => navigation.navigate("Home")}  disable={isLoading}>
+                <ButtonCancel onPress={() => navigation.navigate("Home")} disable={isLoading}>
                     <ButtonTitle>
                         Cancelar
                     </ButtonTitle>

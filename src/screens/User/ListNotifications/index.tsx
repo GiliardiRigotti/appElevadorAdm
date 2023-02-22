@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import CardUser from "../../components/CardItem";
-import Header from "../../components/Header";
-import { Container } from "../../styles/global";
-import { AppContext } from "../../context";
-import AddButton from "../../components/AddButton";
+import CardUser from "../../../components/CardItem";
+import Header from "../../../components/Header";
+import { Container } from "../../../styles/global";
+import { AppContext } from "../../../context";
+import AddButton from "../../../components/AddButton";
 import { ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Footer from "../../components/Footer";
+import Footer from "../../../components/Footer";
 
 
-export default function ManageNotifications() {
+export default function ListNotifications() {
     const navigation = useNavigation()
     const { listNotifications } = useContext(AppContext)
     return (

@@ -13,22 +13,24 @@ import { colors } from "../../constants/colors";
 export default function Login() {
     const navigation = useNavigation()
     const [isLoad, setIsLoad] = useState<boolean>(false)
-    const { login } = useContext(AppContext)
+    const { login, findUser, userAuth } = useContext(AppContext)
     const [formLogin, setFormLogin] = useState<ISignIn>({
         email: '',
         password: ''
     })
 
     async function handleSignIn() {
+        setIsLoad(true)
         if (formLogin.email != '' && formLogin.password != '') {
-            setIsLoad(true)
-            const auth = await login(formLogin)
-            if (auth) {
+            //const auth = await login(formLogin)
+            await findUser(formLogin)
+            if (userAuth !== null) {
                 navigation.navigate("Home")
             }
             setIsLoad(false)
             return
         }
+        setIsLoad(false)
         showNotification({
             title: "Aviso",
             description: "Verifica se os campos foram preenchidos",

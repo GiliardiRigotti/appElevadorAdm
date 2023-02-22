@@ -10,12 +10,18 @@ import { showNotification } from '../utils/notification';
 import auth from "@react-native-firebase/auth"
 
 interface AppContextData {
-    userAuth: IUserAuth | null
+    userAuth: IUser | null
+    userSigned: boolean
     login: ({ email, password }: ISignIn) => Promise<boolean>
+    logout: () => void
+    findUser: ({ email, password }: ISignIn) => void
     forgotPassword: ({ email }: ISignIn) => Promise<boolean>
     createUser: (newUser: IUser) => Promise<boolean>
     updateUser: (id: string, updateUser: IUser) => Promise<boolean>
     deleteUser: (id: string) => Promise<boolean>
+    createOrder: (newOrder: IOrder) => Promise<boolean>
+    updateOrder: (id: string, updateOrder: IOrder) => Promise<boolean>
+    deleteOrder: (id: string) => Promise<boolean>
     createTip: (newTip: ITip) => Promise<boolean>
     updateTip: (id: string, updateTip: ITip) => Promise<boolean>
     deleteTip: (id: string) => Promise<boolean>
@@ -23,15 +29,18 @@ interface AppContextData {
     listUsers: IUser[]
     listNotifications: INotification[]
     listTips: ITip[]
+    listOrders: IOrder[]
 }
 
 const AppContext = createContext({} as AppContextData)
 
 function AppProvider({ children }: any) {
-    const [userAuth, setUserAuth] = useState<IUserAuth | null>(null)
+    const [userSigned, setUserSigned] = useState(false)
+    const [userAuth, setUserAuth] = useState<IUser | null>(null)
     const [listUsers, setListUsers] = useState<IUser[]>([])
     const [listNotifications, setListNotifications] = useState<INotification[]>([])
     const [listTips, setListTips] = useState<ITip[]>([])
+    const [listOrders, setListOrders] = useState<IOrder[]>([])
 
     const createUser = useCallback(async (newUser: IUser) => {
         try {
@@ -88,6 +97,30 @@ function AppProvider({ children }: any) {
                 type: "success"
             })
             return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao deletar o usuario deletado",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const findUser = useCallback(async ({ email, password }: ISignIn) => {
+        try {
+            const users = await firestore().collection('users').where('email', '==', email).where('password', '==', password).onSnapshot(querySnapshot => {
+                const data = querySnapshot.docs.map(docs => {
+                    return {
+                        id: docs.id,
+                        ...docs.data()
+                    }
+                }) as IUser[]
+                setUserSigned(true)
+                setUserAuth(data[0])
+            })
+            return () => users();
         } catch (error) {
             showNotification({
                 title: "Aviso",
@@ -162,6 +195,69 @@ function AppProvider({ children }: any) {
         }
     }, [])
 
+    const createOrder = useCallback(async (newOrder: IOrder) => {
+        try {
+            await firestore().collection('orders').add(newOrder)
+            showNotification({
+                title: "Sucesso",
+                description: "Aberto a ordem de serviço",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao abrir a ordem de serviço",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const updateOrder = useCallback(async (id: string, updatedOrder: IOrder) => {
+        try {
+            await firestore().collection('orders').doc(`${id}`).update(updatedOrder)
+            showNotification({
+                title: "Sucesso",
+                description: "Efetuado atualização da ordem de serviço",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao atualizar a ordem de serviço",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
+    const deleteOrder = useCallback(async (id: string) => {
+        try {
+            await firestore().collection('orders').doc(`${id}`).delete()
+            showNotification({
+                title: "Sucesso",
+                description: "Deletado a ordem de serviço",
+                duration: 2500,
+                type: "success"
+            })
+            return true
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao deletar a ordem de serviço",
+                duration: 2500,
+                type: "error"
+            })
+            return false
+        }
+    }, [])
+
     const createNotification = useCallback(async (newNotification: INotification) => {
         try {
             await firestore().collection('notifications').add(newNotification)
@@ -195,7 +291,7 @@ function AppProvider({ children }: any) {
                     }
                 }) as INotification[]
 
-                console.log(data)
+                //console.log(data)
                 setListNotifications(data)
             })
             return () => notifications();
@@ -220,7 +316,7 @@ function AppProvider({ children }: any) {
                     }
                 }) as ITip[]
 
-                console.log(data)
+                //console.log(data)
                 setListTips(data)
             })
             return () => tips();
@@ -245,10 +341,35 @@ function AppProvider({ children }: any) {
                     }
                 }) as IUser[]
 
-                console.log(data)
+                //console.log(data)
                 setListUsers(data)
             })
             return () => users();
+        } catch (error) {
+            showNotification({
+                title: "Aviso",
+                description: "Erro ao pegar a lista de usuarios",
+                duration: 1500,
+                type: "error"
+            })
+            return []
+        }
+    }, [])
+
+    const getListOrderOfService = useCallback(async () => {
+        try {
+            const orders = await firestore().collection('orders').onSnapshot(querySnapshot => {
+                const data = querySnapshot.docs.map(docs => {
+                    return {
+                        id: docs.id,
+                        ...docs.data()
+                    }
+                }) as IOrder[]
+
+                //console.log(data)
+                setListOrders(data)
+            })
+            return () => orders();
         } catch (error) {
             showNotification({
                 title: "Aviso",
@@ -266,6 +387,7 @@ function AppProvider({ children }: any) {
             await getListUsers()
             await getListNotifications()
             await getListTips()
+            await getListOrderOfService()
             return true
         } catch (error) {
             showNotification({
@@ -278,7 +400,11 @@ function AppProvider({ children }: any) {
         }
     }, [])
 
-    const forgotPassword = useCallback(async ({ email } : ISignIn) => {
+    const logout = useCallback(async () => {
+        setUserAuth(null)
+    }, [])
+
+    const forgotPassword = useCallback(async ({ email }: ISignIn) => {
         try {
             await auth().sendPasswordResetEmail(email)
             showNotification({
@@ -301,7 +427,7 @@ function AppProvider({ children }: any) {
     }, [])
 
     return (
-        <AppContext.Provider value={{ userAuth, login, listUsers, listNotifications, listTips, forgotPassword, createUser, createTip, createNotification, updateUser, deleteUser, updateTip, deleteTip }}>
+        <AppContext.Provider value={{ logout, userSigned, findUser, userAuth, login, listUsers, listNotifications, listTips, forgotPassword, createUser, createTip, createNotification, updateUser, deleteUser, updateTip, deleteTip, createOrder, deleteOrder, updateOrder, listOrders }}>
             {children}
         </AppContext.Provider>
     )

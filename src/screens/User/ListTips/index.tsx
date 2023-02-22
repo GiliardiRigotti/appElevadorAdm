@@ -1,20 +1,20 @@
 import { useContext } from "react";
-import Header from "../../components/Header";
-import { Container } from "../../styles/global";
-import { AppContext } from "../../context";
-import CardItem from "../../components/CardItem";
-import Footer from "../../components/Footer";
+import Header from "../../../components/Header";
+import { Container } from "../../../styles/global";
+import { AppContext } from "../../../context";
+import CardItem from "../../../components/CardItem";
+import Footer from "../../../components/Footer";
 import { ScrollView } from "react-native";
-import AddButton from "../../components/AddButton";
+import AddButton from "../../../components/AddButton";
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function ManageTips() {
+export default function ListTips() {
     const navigation = useNavigation()
     const { listTips } = useContext(AppContext)
     return (
         <>
-            <Header title="Recomendações"/>
+            <Header title="Recomendações" />
             <Container>
                 <ScrollView
                     style={{

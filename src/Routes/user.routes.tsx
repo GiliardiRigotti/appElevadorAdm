@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/User/Home';
-import ManageUsers from '../screens/User/ManageUsers';
-import CreateUser from '../screens/User/CreateUser';
-import ManageNotifications from '../screens/User/ManageNotifications';
-import CreateNotification from '../screens/User/CreateNotification';
-import ManageTips from '../screens/User/ManageTips';
 import CreateTip from '../screens/User/CreateTip';
+import ManageOrders from '../screens/User/ManageOrders';
+import CreateOrder from '../screens/User/CreateOrder';
+import ListNotifications from '../screens/User/ListNotifications';
+import ListTips from '../screens/User/ListTips';
 
 
 const Stack = createStackNavigator();
@@ -18,11 +17,10 @@ export default function UserRoutes() {
                 headerShown: false
             }}>
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ManageUsers" component={ManageUsers} />
-            <Stack.Screen name="CreateUser" component={CreateUser} />
-            <Stack.Screen name="ManageNotifications" component={ManageNotifications} />
-            <Stack.Screen name="CreateNotification" component={CreateNotification} />
-            <Stack.Screen name="ManageTips" component={ManageTips} />
+            <Stack.Screen name="ManageOrders" component={ManageOrders} />
+            <Stack.Screen name="CreateOrder" component={CreateOrder} />
+            <Stack.Screen name="ListNotifications" component={ListNotifications} />
+            <Stack.Screen name="ListTips" component={ListTips} />
             <Stack.Screen name="CreateTip" component={CreateTip} />
         </Stack.Navigator>
     );

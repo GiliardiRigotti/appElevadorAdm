@@ -9,37 +9,33 @@ import { IUser } from "../../../interfaces/user";
 import { useContext, useState } from "react";
 import { AppContext } from "../../../context";
 import Checkbox from "../../../components/Checkbox";
-import { KeyboardAvoidingView, Platform } from "react-native";
+import { ActivityIndicator, KeyboardAvoidingView, Platform } from "react-native";
+import { colors } from "../../../constants/colors";
 
 export default function CreateOrder() {
-    const { createUser } = useContext(AppContext)
+    const { createOrder, userAuth } = useContext(AppContext)
     const [isLoad, setIsLoad] = useState<boolean>(false)
-    const [form, setForm] = useState<IUser>({
-        name: "",
-        address: "",
-        city: "",
-        district: "",
-        email: "",
-        number: "",
-        phone: "",
-        password: "",
-        administrator: false
+    const [form, setForm] = useState<IOrder>({
+        title: "",
+        description: "",
+        idClient: userAuth?.id,
+        status: "open"
     })
     const navigation = useNavigation()
 
     async function handleSignUp() {
         try {
             setIsLoad(true)
-            if (form.name !== "" && form.address !== "" && form.city !== "" && form.district !== "" && form.email !== "" && form.number !== "" && form.phone !== "" && form.password !== "") {
-                const newUser = await createUser(form)
-                if (newUser) {
+            if (form.title !== "" && form.description !== "") {
+                const newOrder = await createOrder(form)
+                if (newOrder) {
                     showNotification({
                         title: "Aviso",
-                        description: "Foi cadastrado com sucesso",
+                        description: "Foi aberto o chamado",
                         type: "success",
                         duration: 2000
                     })
-                    navigation.navigate("ManageUsers")
+                    navigation.navigate("ManageOrders")
                     setIsLoad(false)
                     return
                 }
@@ -55,7 +51,7 @@ export default function CreateOrder() {
             setIsLoad(false)
             showNotification({
                 title: "Aviso",
-                description: "Erro ao cadastrar, tenta mais tarde",
+                description: "Erro ao abrir o chamado, tenta mais tarde",
                 type: "error",
                 duration: 2000
             })
@@ -63,26 +59,20 @@ export default function CreateOrder() {
     }
     return (
         <>
-            <Header title="Criação de usuário" />
-            <KeyboardAvoidingView
-                behavior="padding"
-                style={{ flex: 1, width: "100%" }}
-                keyboardVerticalOffset={80}
-            >
+            <Header title="Abertura de chamado técnico" />
                 <Container>
-                    <Input title="Nome" onChangeText={(value) => setForm({ ...form, name: value })} />
-                    <Input title="E-mail" onChangeText={(value) => setForm({ ...form, email: value })} />
-                    <Input title="Senha" onChangeText={(value) => setForm({ ...form, password: value })} secureTextEntry />
-                    <Input title="DDD + Telefone" onChangeText={(value) => setForm({ ...form, phone: value })} />
-                    <Input title="Cidade" onChangeText={(value) => setForm({ ...form, city: value })} />
-                    <Input title="Bairro" onChangeText={(value) => setForm({ ...form, district: value })} />
-                    <Input title="Endereço" onChangeText={(value) => setForm({ ...form, address: value })} />
-                    <Input title="Numero" onChangeText={(value) => setForm({ ...form, number: value })} />
-                    <Checkbox title="Administrador?" value={form.administrator} onPress={() => setForm({ ...form, administrator: !form.administrator })} />
+                    <Input title="Titulo" onChangeText={(value) => setForm({ ...form, title: value })} />
+                    <Input title="Descrição" onChangeText={(value) => setForm({ ...form, description: value })} textArea/>
+                    
                     <Button onPress={handleSignUp} disabled={isLoad}>
-                        <ButtonTitle>
-                            Cadastrar
-                        </ButtonTitle>
+                        {
+                            isLoad?
+                            <ActivityIndicator size={20} color={colors.white} animating/>
+                            :
+                            <ButtonTitle>
+                                Abrir chamado
+                            </ButtonTitle>
+                        }
                     </Button>
                     <ButtonCancel onPress={() => navigation.navigate("Home")} disabled={isLoad}>
                         <ButtonTitle>
@@ -90,7 +80,6 @@ export default function CreateOrder() {
                         </ButtonTitle>
                     </ButtonCancel>
                 </Container>
-            </KeyboardAvoidingView>
         </>
     )
 }

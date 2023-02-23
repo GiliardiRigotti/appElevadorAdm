@@ -110,13 +110,17 @@ function AppProvider({ children }: any) {
 
     const findUser = useCallback(async ({ email, password }: ISignIn) => {
         try {
-            const users = await firestore().collection('users').where('email', '==', email).where('password', '==', password).onSnapshot(querySnapshot => {
+            const users = await firestore().collection('users').where('email', '==', email).where('password', '==', password).onSnapshot(async querySnapshot => {
                 const data = querySnapshot.docs.map(docs => {
                     return {
                         id: docs.id,
                         ...docs.data()
                     }
                 }) as IUser[]
+                await getListUsers()
+                await getListNotifications()
+                await getListTips()
+                await getListOrderOfService()
                 setUserSigned(true)
                 setUserAuth(data[0])
             })
@@ -124,7 +128,7 @@ function AppProvider({ children }: any) {
         } catch (error) {
             showNotification({
                 title: "Aviso",
-                description: "Erro ao deletar o usuario deletado",
+                description: "Erro ao logar",
                 duration: 2500,
                 type: "error"
             })
@@ -357,6 +361,7 @@ function AppProvider({ children }: any) {
     }, [])
 
     const getListOrderOfService = useCallback(async () => {
+        console.log("Orders")
         try {
             const orders = await firestore().collection('orders').onSnapshot(querySnapshot => {
                 const data = querySnapshot.docs.map(docs => {
@@ -366,14 +371,14 @@ function AppProvider({ children }: any) {
                     }
                 }) as IOrder[]
 
-                //console.log(data)
+                console.log(data)
                 setListOrders(data)
             })
             return () => orders();
         } catch (error) {
             showNotification({
                 title: "Aviso",
-                description: "Erro ao pegar a lista de usuarios",
+                description: "Erro ao pegar a lista de chamados",
                 duration: 1500,
                 type: "error"
             })

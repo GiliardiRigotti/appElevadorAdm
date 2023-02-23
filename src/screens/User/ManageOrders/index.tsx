@@ -7,14 +7,15 @@ import AddButton from "../../../components/AddButton";
 import CardItem from "../../../components/CardItem";
 import { useNavigation } from "@react-navigation/native";
 import Footer from "../../../components/Footer";
+import { Button, ButtonTitle } from "./styles";
 
 
 export default function ManageOrders() {
     const navigation = useNavigation()
-    const { listUsers } = useContext(AppContext)
+    const { listOrders } = useContext(AppContext)
     return (
         <>
-            <Header title="Usuários" />
+            <Header title="Suporte" />
             <Container>
                 <ScrollView
                     style={{
@@ -25,12 +26,23 @@ export default function ManageOrders() {
                     }}
                 >
                     {
-                        listUsers.map((item, index) => <CardItem key={item.id} id={`${item.id}`} name={item.name} description={item.address} type='user' />)
+                        listOrders.map((item, index) => <CardItem key={item.id} id={`${item.id}`} name={item.title} description={item.description} type='user' />)
+                    }
+                    {
+                        listOrders.length == 0&&
+                        <Button onPress={() => navigation.navigate("CreateOrder")} >
+                            <ButtonTitle>
+                                Abrir chamado para o suporte
+                            </ButtonTitle>
+                        </Button>
                     }
                 </ScrollView>
             </Container>
             <Footer />
-            <AddButton onPress={() => navigation.navigate("CreateUser")} />
+            {
+                listOrders.length != 0 &&
+                <AddButton onPress={() => navigation.navigate("CreateOrder")} />
+            }
         </>
 
     )

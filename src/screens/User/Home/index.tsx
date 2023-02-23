@@ -16,19 +16,19 @@ export default function Home() {
                 <Card
                     title="Suporte"
                     description="Abrir chamados tecnicos "
-                    goTo="ManageUsers" bgColor={colors.green}
+                    goTo="ManageOrders" bgColor={colors.green}
                     fontColor={colors.white}
                 />
                 <Card
                     title="Notificações"
                     description=""
-                    goTo="ManageNotifications" bgColor={colors.yellow}
+                    goTo="ListNotifications" bgColor={colors.yellow}
                     fontColor={colors.black}
                 />
                 <Card
                     title="Recomendações"
                     description="Recomendaçõs tecnicos para cuidado do elevador"
-                    goTo="ManageTips" bgColor={colors.blue}
+                    goTo="ListTips" bgColor={colors.blue}
                     fontColor={colors.white}
                 />
             </Container>

@@ -8,6 +8,7 @@ import CardItem from "../../../components/CardItem";
 import { useNavigation } from "@react-navigation/native";
 import Footer from "../../../components/Footer";
 import { Button, ButtonTitle } from "./styles";
+import Order from "../../../components/Order";
 
 
 export default function ManageOrders() {
@@ -26,7 +27,7 @@ export default function ManageOrders() {
                     }}
                 >
                     {
-                        listOrders.map((item, index) => <CardItem key={item.id} id={`${item.id}`} name={item.title} description={item.description} type='user' />)
+                        listOrders.map((item, index) => <Order key={item.id} data={item} />)
                     }
                     {
                         listOrders.length == 0&&

@@ -19,7 +19,7 @@ export default function CreateOrder() {
         title: "",
         description: "",
         idClient: userAuth?.id,
-        status: "open"
+        status: "aberto",
     })
     const navigation = useNavigation()
 

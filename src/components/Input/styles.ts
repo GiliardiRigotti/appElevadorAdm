@@ -9,12 +9,12 @@ export const Container = styled.View`
 export const Box = styled.View`
     border-width:1px;
     border-radius:8px;
-    color:${colors.green};
+    border-color:${colors.blue};
 `;
 
 export const Title = styled.Text`
     font-size:14px;
-    color:${colors.green};
+    color:${colors.blue};
 `;
 
 export const TextInput = styled.TextInput`

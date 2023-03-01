@@ -12,9 +12,10 @@ interface Props {
     name: string
     description?: string
     type: 'user' | 'tip' | 'notification'
+    onPress?: ()=> void
 }
 
-export default function CardItem({id, name, description, type }: Props) {
+export default function CardItem({id, name, description, type, onPress }: Props) {
     const [isLoad, setIsLoad] = useState<boolean>(false)
     const {deleteUser, deleteTip} = useContext(AppContext)
 
@@ -42,17 +43,10 @@ export default function CardItem({id, name, description, type }: Props) {
     }
 
     return (
-        <Container style={styles.shadow}>
+        <Container style={styles.shadow} onPress={onPress}>
             <Title>
                 {name}
             </Title>
-
-            {
-                description &&
-                <Description>
-                    {description}
-                </Description>
-            }
             {
                 type !== 'notification' &&
                 <Options>

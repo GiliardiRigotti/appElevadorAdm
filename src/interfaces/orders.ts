@@ -5,8 +5,10 @@ interface IOrder {
     description: string
     solution?: string
     items?: IItems[]
-    status?: 'open' | 'working' | 'close'
+    status?: 'aberto' | 'em andamento' | 'finalizado'
     laborPrice?: number
+    create_at?: string
+    close_at?: string | null
 }
 
 interface IItems {

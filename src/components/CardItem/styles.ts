@@ -2,14 +2,12 @@ import styled from "styled-components/native";
 import { colors } from "../../constants/colors";
 import { StyleSheet } from "react-native";
 
-export const Container = styled.View`
-    width:90%;
+export const Container = styled.TouchableOpacity`
+    width:95%;
     border-radius:10px;
     margin-top:10px;
-    border-width:1px;
-    border-color:#fffffa;
     padding:10px;
-    background-color:#fffffa;
+    background-color:${colors.gray};
 `;
 
 export const Wrapper = styled.View`

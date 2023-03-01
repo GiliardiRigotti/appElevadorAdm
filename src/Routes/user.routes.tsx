@@ -6,6 +6,8 @@ import ManageOrders from '../screens/User/ManageOrders';
 import CreateOrder from '../screens/User/CreateOrder';
 import ListNotifications from '../screens/User/ListNotifications';
 import ListTips from '../screens/User/ListTips';
+import OrderView from '../screens/User/OrderView';
+import CardView from '../screens/User/CardView';
 
 
 const Stack = createStackNavigator();
@@ -22,6 +24,8 @@ export default function UserRoutes() {
             <Stack.Screen name="ListNotifications" component={ListNotifications} />
             <Stack.Screen name="ListTips" component={ListTips} />
             <Stack.Screen name="CreateTip" component={CreateTip} />
+            <Stack.Screen name="OrderView" component={OrderView} />
+            <Stack.Screen name="CardView" component={CardView} />
         </Stack.Navigator>
     );
 }

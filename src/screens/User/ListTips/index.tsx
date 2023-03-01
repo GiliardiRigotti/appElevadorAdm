@@ -25,7 +25,7 @@ export default function ListTips() {
                     }}
                 >
                     {
-                        listTips.map((item, index) => <CardItem key={index} id={`${item.id}`} name={item.title} description={item.description} type="tip" />)
+                        listTips.map((item, index) => <CardItem key={index} id={`${item.id}`} name={item.title} description={item.description} type="notification" onPress={()=> navigation.navigate("CardView", {data:item})} />)
                     }
                 </ScrollView>
             </Container>

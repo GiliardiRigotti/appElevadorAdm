@@ -201,7 +201,9 @@ function AppProvider({ children }: any) {
 
     const createOrder = useCallback(async (newOrder: IOrder) => {
         try {
-            await firestore().collection('orders').add(newOrder)
+            await firestore().collection('orders').add({
+                ...newOrder, created_at: new Date().toISOString()
+            })
             showNotification({
                 title: "Sucesso",
                 description: "Aberto a ordem de serviço",

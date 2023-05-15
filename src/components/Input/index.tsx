@@ -6,11 +6,14 @@ interface Props {
     placeholder?: string
     secureTextEntry?: boolean
     textArea?: boolean
+    width?: number
+    keyboard?: 'decimal-pad' | 'number-pad' | 'default'
+    value?: string | number
 }
 
-export default function Input({ title, onChangeText, placeholder, secureTextEntry = false, textArea = false }: Props) {
+export default function Input({ title, onChangeText, placeholder, secureTextEntry = false, textArea = false, keyboard = 'default', width = 60, value }: Props) {
     return (
-        <Container>
+        <Container style={{ width: `${width}%` }}>
             <Title>
                 {title}
             </Title>
@@ -24,9 +27,10 @@ export default function Input({ title, onChangeText, placeholder, secureTextEntr
                             editable
                             multiline={true}
                             numberOfLines={10}
+                            value={value}
                         />
                         :
-                        <TextInput placeholder={placeholder} onChangeText={onChangeText} secureTextEntry={secureTextEntry} />
+                        <TextInput placeholder={placeholder} onChangeText={onChangeText} secureTextEntry={secureTextEntry} keyboardType={keyboard} value={value} />
                 }
             </Box>
         </Container>

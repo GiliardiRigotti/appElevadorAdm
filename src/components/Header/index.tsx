@@ -11,6 +11,7 @@ interface Props {
 
 
 export default function Header({ title = "" }: Props) {
+    const {logout} = useContext(AppContext)
     return (
         <>
             <StatusBar style="light" />
@@ -18,7 +19,7 @@ export default function Header({ title = "" }: Props) {
                 <Title>
                     {title}
                 </Title>
-                <Button>
+                <Button onPress={logout}>
                     <Icon name="logout" size={20} color={colors.white} />
                 </Button>
             </Container>

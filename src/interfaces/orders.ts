@@ -7,8 +7,14 @@ interface IOrder {
     items?: IItems[]
     status?: 'aberto' | 'em andamento' | 'finalizado'
     laborPrice?: number
-    create_at?: string
-    close_at?: string | null
+    create_at?: {
+        seconds: number,
+        nanoseconds: number
+    }
+    close_at?: {
+        seconds: number,
+        nanoseconds: number
+    }
 }
 
 interface IItems {

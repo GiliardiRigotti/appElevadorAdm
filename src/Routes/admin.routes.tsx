@@ -7,6 +7,9 @@ import ManageNotifications from '../screens/Admin/ManageNotifications';
 import CreateNotification from '../screens/Admin/CreateNotification';
 import ManageTips from '../screens/Admin/ManageTips';
 import CreateTip from '../screens/Admin/CreateTip';
+import CardView from '../screens/Admin/CardView';
+import ManageOrderOfService from '../screens/Admin/ManageOrderOfService';
+import OrderView from '../screens/Admin/OrderView';
 
 const Stack = createStackNavigator();
 
@@ -20,9 +23,12 @@ export default function AdminRoutes() {
             <Stack.Screen name="ManageUsers" component={ManageUsers} />
             <Stack.Screen name="CreateUser" component={CreateUser} />
             <Stack.Screen name="ManageNotifications" component={ManageNotifications} />
+            <Stack.Screen name="ManageOrderOfService" component={ManageOrderOfService} />
             <Stack.Screen name="CreateNotification" component={CreateNotification} />
             <Stack.Screen name="ManageTips" component={ManageTips} />
             <Stack.Screen name="CreateTip" component={CreateTip} />
+            <Stack.Screen name="CardView" component={CardView} />
+            <Stack.Screen name="OrderView" component={OrderView} />
         </Stack.Navigator>
     );
 }

@@ -3,7 +3,6 @@ import { colors } from "../../constants/colors"
 
 export const Container = styled.View`
     margin-top:15px;
-    width:60%;
 `;
 
 export const Box = styled.View`
@@ -15,6 +14,7 @@ export const Box = styled.View`
 export const Title = styled.Text`
     font-size:14px;
     color:${colors.blue};
+    font-weight: bold;
 `;
 
 export const TextInput = styled.TextInput`

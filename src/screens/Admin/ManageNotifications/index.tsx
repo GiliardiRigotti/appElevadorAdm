@@ -25,7 +25,7 @@ export default function ManageNotifications() {
                     }}
                 >
                     {
-                        listNotifications.map((item, index) => <CardUser key={index} id={`${item.id}`} name={item.title} description={item.description} type="notification" />)
+                        listNotifications.map((item, index) => <CardUser key={index} id={`${item.id}`} name={item.title} description={item.description} type="notification" onPress={()=> navigation.navigate("CardView", {data:item})} />)
                     }
                 </ScrollView>
             </Container>

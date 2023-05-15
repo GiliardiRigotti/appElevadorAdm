@@ -31,7 +31,7 @@ export default function Home() {
                 <Card
                     title="Ordem de serviço"
                     description="Gerencie as ordens de serviços"
-                    goTo="ManageTips" bgColor={colors.blueLight}
+                    goTo="ManageOrderOfService" bgColor={colors.blueLight}
                     fontColor={colors.black}
                 />
             </Container>

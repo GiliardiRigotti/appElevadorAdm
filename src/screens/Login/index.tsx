@@ -28,15 +28,15 @@ export default function Login() {
                 navigation.navigate("Home")
             }
             setIsLoad(false)
-            return
+        }else{
+            setIsLoad(false)
+            showNotification({
+                title: "Aviso",
+                description: "Verifica se os campos foram preenchidos",
+                type: "warn",
+                duration: 2000,
+            })
         }
-        setIsLoad(false)
-        showNotification({
-            title: "Aviso",
-            description: "Verifica se os campos foram preenchidos",
-            type: "warn",
-            duration: 2000,
-        })
     }
 
     async function handleForgotPassword() {

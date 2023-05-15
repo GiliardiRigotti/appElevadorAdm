@@ -110,19 +110,28 @@ function AppProvider({ children }: any) {
 
     const findUser = useCallback(async ({ email, password }: ISignIn) => {
         try {
-            const users = await firestore().collection('users').where('email', '==', email).where('password', '==', password).onSnapshot(async querySnapshot => {
+            const users = await firestore().collection('users').where('email', '==', email).onSnapshot(async querySnapshot => {
                 const data = querySnapshot.docs.map(docs => {
                     return {
                         id: docs.id,
                         ...docs.data()
                     }
                 }) as IUser[]
-                await getListUsers()
-                await getListNotifications()
-                await getListTips()
-                await getListOrderOfService()
-                setUserSigned(true)
-                setUserAuth(data[0])
+                if(data[0].email == email && data[0].password == password){
+                    await getListUsers()
+                    await getListNotifications()
+                    await getListTips()
+                    await getListOrderOfService()
+                    setUserSigned(true)
+                    setUserAuth(data[0])
+                }else{
+                    showNotification({
+                        title: "Aviso",
+                        description: "Verifica seu email/ senha",
+                        duration: 2500,
+                        type: "error"
+                    })
+                }
             })
             return () => users();
         } catch (error) {
@@ -132,7 +141,6 @@ function AppProvider({ children }: any) {
                 duration: 2500,
                 type: "error"
             })
-            return false
         }
     }, [])
 
@@ -409,6 +417,7 @@ function AppProvider({ children }: any) {
 
     const logout = useCallback(async () => {
         setUserAuth(null)
+        setUserSigned(false)
     }, [])
 
     const forgotPassword = useCallback(async ({ email }: ISignIn) => {
